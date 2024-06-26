@@ -1,0 +1,7 @@
+abstract project GNOGA_Config
+
+   Default_Compiler_Swithches := (
+      "-gnatE" -- dynamic elaboration
+   );
+
+end GNOGA_Config;
