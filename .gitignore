@@ -11,3 +11,7 @@ config/
 suites
 GNAT-*
 
+/obj/
+/lib/
+/alire/
+/config/
