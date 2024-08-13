@@ -1,3 +1,3 @@
 #!/bin/zsh
 source ~/.zshrc
-alr build -- -gnatE
+alr -v build -- -j10 -s -k -gnatE
