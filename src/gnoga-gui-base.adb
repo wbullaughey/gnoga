@@ -1040,6 +1040,7 @@ package body Gnoga.Gui.Base is
       Object.On_Click_Event := Handler;
 
       if Handler /= null and Object.On_Mouse_Click_Event = null then
+         Log_Here (Trace, "ID " & Object.Unique_Id'img);
          Object.Bind_Event (Event   => "click",
                             Message => "",
                             Script  => Mouse_Event_Script);
@@ -1050,6 +1051,7 @@ package body Gnoga.Gui.Base is
    is
    begin
       if Object.On_Click_Event /= null then
+         Log_Here (Trace);
          Object.On_Click_Event (Object);
       end if;
    end Fire_On_Click;
@@ -1072,7 +1074,7 @@ package body Gnoga.Gui.Base is
       Object.On_Mouse_Click_Event := Handler;
 
       if Handler /= null and Object.On_Click_Event = null then
-         Log_Here (Trace);
+         Log_Here (Trace, "Unique_ID " & Object.Unique_ID'img);
          Object.Bind_Event (Event   => "click",
                             Message => "",
                             Script  => Mouse_Event_Script);
