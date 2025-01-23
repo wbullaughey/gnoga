@@ -293,7 +293,7 @@ package body Gnoga.Server.Connection is
                Server : Gnoga_HTTP_Connection (Factory'Access,  Server_Port);
                pragma Unreferenced (Server);
             begin
-               Standard.Ada_Lib.Trace.Log_Here (Debug, "wait for stop);
+               Standard.Ada_Lib.Trace.Log_Here (Debug, "wait for stop");
                accept Stop;
                Standard.Ada_Lib.Trace.Log_Here (Debug, "stoping");
             end;
