@@ -153,7 +153,12 @@ package body Gnoga.Application.Multi_Connect is
       Verbose : in Boolean                   := True)
    is
    begin
-      Log_In (Trace, Quote ("boot", Boot) & " port" & Port'img);
+      Log_In (Trace, Quote ("boot", Boot) & " port" & Port'img &
+         (if Event = Null then
+            " null"
+         else
+            " have") &
+         " event ");
       Gnoga.Server.Connection.Initialize (Host, Port, Boot, Verbose);
 
       if Verbose then
