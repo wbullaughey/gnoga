@@ -1,0 +1,12 @@
+name = "tutorial_01"
+description = "tutorial 01"
+version = "0.1.0-dev"
+
+authors = ["Wayne Bullaughey"]
+maintainers = ["Wayne Bullaughey <wbullaughey@gmail.com>"]
+maintainers-logins = ["wbullaughey"]
+licenses = "MIT OR Apache-2.0 WITH LLVM-exception"
+website = ""
+tags = ["1"]
+
+executables = ["tutorial_01"]
