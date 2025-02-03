@@ -3,6 +3,7 @@ alire/
 bin/
 config/
 include/
+deps/PragmARC/
 *.mak
 *.vpwwildcardcache
 *.vpwhistuxml
