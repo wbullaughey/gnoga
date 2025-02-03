@@ -1,4 +1,4 @@
-with "../lib/gnoga";
+with "../gnoga";
 with "../settings";
 
 project Tools is

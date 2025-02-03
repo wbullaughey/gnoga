@@ -208,7 +208,7 @@ deps/PragmARC:
 pragmarc: deps/PragmARC
 	- cd deps/PragmARC && git pull
 
-demo: snake mine_detector chattanooga adaedit adablog password_gen linxtris random_int adaothello tic_tac_toe db_maker
+demo: snake mine_detector chattanooga adaedit adablog password_gen linxtris random_int adaothello tic_tac_toe # db_maker
 
 snake:
 	cd demo/snake && $(BUILDER) -Psnake.gpr -XPRJ_TARGET=${PRJ_TARGET}

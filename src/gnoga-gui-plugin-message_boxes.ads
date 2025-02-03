@@ -3,7 +3,6 @@
 --  GPLv3 with Runtime Exception
 
 with Gnoga.Gui.Base;
-with Gnoga.Gui.Plugin.jQueryUI.Widget;
 
 package Gnoga.Gui.Plugin.Message_Boxes is
 
@@ -18,25 +17,12 @@ package Gnoga.Gui.Plugin.Message_Boxes is
                              Yes_No_Cancel_Def_Box);
 
    function Message_Box
-     (Dialog          : in out jQueryUI.Widget.Dialog_Type;
-      Parent          : in out Gnoga.Gui.Base.Base_Type'Class;
-      Title, Text     : in     String;
-      Style           : in     Message_Box_Type                     := OK_Box)
-   return Message_Box_Result;
-
-   function Message_Box
      (Parent          : in out Gnoga.Gui.Base.Base_Type'Class;
       Title, Text     : in     String;
       Style           : in     Message_Box_Type                     := OK_Box)
    return Message_Box_Result;
 
    --  Same, but ignore message result.
-
-   procedure Message_Box
-     (Dialog          : in out jQueryUI.Widget.Dialog_Type;
-      Parent          : in out Gnoga.Gui.Base.Base_Type'Class;
-      Title, Text : in     String;
-      Style       : in     Message_Box_Type                     := OK_Box);
 
    procedure Message_Box
      (Parent      : in out Gnoga.Gui.Base.Base_Type'Class;

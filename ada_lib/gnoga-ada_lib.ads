@@ -10,6 +10,6 @@ package Gnoga.Ada_Lib is
       Message                    : in     String;
       Where                      : in     String := GNAT.Source_Info.Source_Location);
 
-   Trace                         : Boolean := False;
+   Trace                         : Boolean := True;
 
 end Gnoga.Ada_Lib;

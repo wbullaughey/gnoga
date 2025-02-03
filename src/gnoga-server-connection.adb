@@ -42,11 +42,12 @@ with Ada.Unchecked_Deallocation;
 with Ada.Exceptions;
 
 with Ada.Containers.Ordered_Maps;
+with ada_lib.socket_io;
 with Ada_Lib.Trace;
 
 with Gnoga.Server.Mime;
 
-with Strings_Edit.Quoted;
+--with Strings_Edit.Quoted;
 with GNAT.Sockets.Server; use GNAT.Sockets.Server;
 with GNAT.Sockets.Connection_State_Machine.HTTP_Server;
 use  GNAT.Sockets.Connection_State_Machine.HTTP_Server;
@@ -60,7 +61,7 @@ with Gnoga.Server.Template_Parser.Simple;
 with Strings_Edit.UTF8.Handling;
 
 package body Gnoga.Server.Connection is
-   use type Gnoga.Types.Unique_ID;
+-- use type Gnoga.Types.Unique_ID;
    use type Gnoga.Types.Pointer_to_Connection_Data_Class;
 
    On_Connect_Event      : Connect_Event      := null;
@@ -351,6 +352,7 @@ package body Gnoga.Server.Connection is
          Input_Size     => Input_Size,
          Output_Size    => Output_Size);
    begin
+      Standard.Ada_Lib.Trace.Log_Here (Debug);
       Socket.Content.Socket := Socket;
 
       return Connection_Ptr (Socket);
@@ -385,6 +387,7 @@ package body Gnoga.Server.Connection is
       Host    : constant String :=
         Ada.Strings.Unbounded.To_String (Server_Host);
    begin
+standard.ada_lib.Trace.log_here ("host " & Host);
       if Host = "" then
          Address.Addr := Any_Inet_Addr;
       else
@@ -392,6 +395,7 @@ package body Gnoga.Server.Connection is
       end if;
 
       Address.Port := Listener.Port;
+standard.ada_lib.Trace.log_here ("address " & standard.ada_lib.socket_io.dump (address));
 
       return Address;
    end Get_Server_Address;
@@ -421,7 +425,7 @@ package body Gnoga.Server.Connection is
       use Ada.Strings.Unbounded;
       use Ada.Strings.Fixed;
 
-      use Strings_Edit.Quoted;
+--    use Strings_Edit.Quoted;
 
       Status : Status_Line renames Get_Status_Line (Client);
 

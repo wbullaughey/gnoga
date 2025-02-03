@@ -1,9 +1,9 @@
 --  Inspired by GWindows and jdemo
 
 with Ada.Exceptions;
-with ADA_LIB.Trace; use ADA_LIB.Trace;
 
 with Gnoga.Gui.Element.Common;
+with Gnoga.Gui.Plugin.jQueryUI.Widget;
 
 package body Gnoga.Gui.Plugin.Message_Boxes is
 
@@ -11,13 +11,13 @@ package body Gnoga.Gui.Plugin.Message_Boxes is
    use Gnoga.Gui.Element;
 
    function Message_Box (
-      Dialog          : in out jQueryUI.Widget.Dialog_Type;
       Parent          : in out Gnoga.Gui.Base.Base_Type'Class;
-      Title, Text     : in     String;
-      Style           : in     Message_Box_Type                     := OK_Box
+      Title, Text : in     String;
+      Style       : in     Message_Box_Type                     := OK_Box
    )
    return Message_Box_Result
    is
+      Dialog : aliased jQueryUI.Widget.Dialog_Type;
       Result : Message_Box_Result;
       pragma Volatile (Result);
       --
@@ -35,7 +35,6 @@ package body Gnoga.Gui.Plugin.Message_Boxes is
       is
       pragma Unreferenced (Object);
       begin
---log_here;
          case Style is
             when OK_Box =>
                Result := OK;
@@ -50,7 +49,6 @@ package body Gnoga.Gui.Plugin.Message_Boxes is
       is
       pragma Unreferenced (Object);
       begin
---log_here;
          Result := No;
          Dialog.Close;
       end No_Close_Dialog;
@@ -60,7 +58,6 @@ package body Gnoga.Gui.Plugin.Message_Boxes is
       is
       pragma Unreferenced (Object);
       begin
---log_here;
          Result := Cancel;
          Dialog.Close;
       end Cancel_Close_Dialog;
@@ -70,7 +67,6 @@ package body Gnoga.Gui.Plugin.Message_Boxes is
       is
       pragma Unreferenced (Object);
       begin
---log_here;
          if Result = None then
             Gnoga.Log ("fermeture ""croix""");
             Result := Cancel;
@@ -81,7 +77,6 @@ package body Gnoga.Gui.Plugin.Message_Boxes is
       no_btn     : Common.Button_Access;
       cancel_btn : Common.Button_Access;
    begin
---log_here ("style " & style'img);
       Result := None;
       Dialog.Create (Parent          => Parent,
                      Title           => Title,
@@ -90,20 +85,17 @@ package body Gnoga.Gui.Plugin.Message_Boxes is
                      Width           => 300,
                      Position_My     => "top",
                      Position_At     => "center top+5%");
---log_here;
       if Style in Yes_No_Box .. Yes_No_Def_Box then
          --  Disable the [x] box: no Cancel choice there
          null; -- !!
       end if;
       Dialog.Open;
---log_here;
       Dialog.On_Close_Handler (Cancel_Window_Dialog'Unrestricted_Access);
       ok_btn := Common.Button_Access
         (Dialog.New_Element ("ok", new Common.Button_Type));
       case Style is
          when OK_Box =>
             ok_btn.Create (Dialog, "OK");
---log_here;
             jQueryUI.Position
                     (ok_btn.all,
                      Target   => Dialog,
@@ -117,7 +109,6 @@ package body Gnoga.Gui.Plugin.Message_Boxes is
                      Using_My => "left bottom",
                      At_Target => "left bottom");
       end case;
---log_here;
       ok_btn.On_Click_Handler (OK_Close_Dialog'Unrestricted_Access);
       case Style is
          when OK_Box =>
@@ -150,7 +141,6 @@ package body Gnoga.Gui.Plugin.Message_Boxes is
          when others =>
             null;  --  No cancel button
       end case;
---log_here;
 
       case Style is
          when OK_Box | Yes_No_Box | Yes_No_Cancel_Box =>
@@ -166,39 +156,12 @@ package body Gnoga.Gui.Plugin.Message_Boxes is
          exit when Result /= None;
       end loop;  -- Waiting for a click into OK
       Gnoga.Log ("sortie de la boucle");
---log_here ("result " & result'img);
       return Result;
    exception
       when E : others =>
          Log ("Error Message_Box.");
          Log (Ada.Exceptions.Exception_Information (E));
          return Cancel;
-   end Message_Box;
-
-   function Message_Box (
-      Parent          : in out Gnoga.Gui.Base.Base_Type'Class;
-      Title, Text     : in     String;
-      Style           : in     Message_Box_Type                     := OK_Box
-   )
-   return Message_Box_Result
-   is
-
-      Dialog          : aliased jQueryUI.Widget.Dialog_Type;
-
-   begin
-      return Message_Box (Dialog,Parent,Title,Text,Style);
-   end Message_Box;
-
-   procedure Message_Box (
-      Dialog          : in out jQueryUI.Widget.Dialog_Type;
-      Parent          : in out Gnoga.Gui.Base.Base_Type'Class;
-      Title, Text : in     String;
-      Style       : in     Message_Box_Type                     := OK_Box
-   )
-   is
-      Dummy_Result : Message_Box_Result;
-   begin
-      Dummy_Result := Message_Box (Dialog, Parent, Title, Text, Style);
    end Message_Box;
 
    procedure Message_Box (
@@ -208,9 +171,8 @@ package body Gnoga.Gui.Plugin.Message_Boxes is
    )
    is
       Dummy_Result : Message_Box_Result;
-      Dialog          : aliased jQueryUI.Widget.Dialog_Type;
    begin
-      Dummy_Result := Message_Box (Dialog, Parent, Title, Text, Style);
+      Dummy_Result := Message_Box (Parent, Title, Text, Style);
    end Message_Box;
 
 end Gnoga.Gui.Plugin.Message_Boxes;

@@ -28,6 +28,7 @@
 with Ada.Calendar;             use Ada.Calendar;
 with Ada.Characters.Handling;  use Ada.Characters.Handling;
 with Ada.IO_Exceptions;        use Ada.IO_Exceptions;
+with Ada_Lib.Trace;
 with Strings_Edit;             use Strings_Edit;
 with Strings_Edit.Integers;    use Strings_Edit.Integers;
 
@@ -471,6 +472,7 @@ package body GNAT.Sockets.Server is
             )  return Sock_Addr_Type is
       Address : Sock_Addr_Type;
    begin
+ada_lib.Trace.log_here;
       Address.Addr := Any_Inet_Addr;
       Address.Port := Listener.Port;
       return Address;
@@ -2159,6 +2161,7 @@ package body GNAT.Sockets.Server is
          end loop;
       end Unblock;
    begin
+ada_lib.Trace.log_here;
       if Address.Port /= 0 then
          Create_Socket (Server_Socket);
          Set_Socket_Option

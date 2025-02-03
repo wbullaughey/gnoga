@@ -28,6 +28,7 @@
 with Ada.Calendar;             use Ada.Calendar;
 with Ada.Characters.Handling;  use Ada.Characters.Handling;
 with Ada.IO_Exceptions;        use Ada.IO_Exceptions;
+with Ada_Lib.Socket_IO;
 with Ada_Lib.Trace;            use Ada_Lib.Trace;
 with Strings_Edit;             use Strings_Edit;
 with Strings_Edit.Integers;    use Strings_Edit.Integers;
@@ -541,6 +542,7 @@ package body GNAT.Sockets.Server is
             )  return Sock_Addr_Type is
       Address : Sock_Addr_Type;
    begin
+ada_lib.Trace.log_here;
       Address.Addr := Any_Inet_Addr;
       Address.Port := Listener.Port;
       return Address;
@@ -645,11 +647,13 @@ package body GNAT.Sockets.Server is
 
    procedure Initialize (Listener : in out Connections_Server) is
    begin
+ada_lib.Trace.log_in (true);
       Listener.IO_Timeout := Get_IO_Timeout (Listener.Factory.all);
       Listener.Polling_Timeout :=
          Get_Polling_Timeout (Listener.Factory.all);
       Create_Selector (Listener.Selector);
       Listener.Doer := new Worker (Listener'Unchecked_Access);
+ada_lib.Trace.log_out (true);
    end Initialize;
 
    function Is_Connected (Client : Connection) return Boolean is
@@ -2348,28 +2352,38 @@ package body GNAT.Sockets.Server is
          end loop;
       end Unblock;
    begin
+ada_lib.Trace.log_here ("port" & Address.Port'img);
       if Address.Port /= 0 then
+ada_lib.Trace.log_here ("address " & ada_lib.socket_io.dump (address));
          Create_Socket (Server_Socket);
+ada_lib.Trace.log_here;
          Set_Socket_Option
          (  Server_Socket,
             Socket_Level,
             (Reuse_Address, True)
          );
+ada_lib.Trace.log_here;
          Bind_Socket (Server_Socket, Address);
+ada_lib.Trace.log_here;
          Listen_Socket (Server_Socket);
+ada_lib.Trace.log_here;
          Set (Listener.Read_Sockets, Server_Socket);
+ada_lib.Trace.log_here;
       end if;
       Listener.Request.Activate;
       loop
+ada_lib.Trace.log_here;
          if Listener.Shutdown_Request then
             Listener.Shutdown_Request := False;
             Check (Listener.Read_Sockets);
          end if;
          if Listener.Connect_Request then
+ada_lib.Trace.log_here;
             declare
                Client : Connection_Ptr;
             begin
                loop
+ada_lib.Trace.log_here;
                   Listener.Request.Get (Client);
                   exit when Client = null;
                   Set (Listener.Write_Sockets, Client.Socket);
@@ -2379,12 +2393,16 @@ package body GNAT.Sockets.Server is
                      Ptr : Entity_Ptr := Client.all'Unchecked_Access;
                   begin
                      Release (Ptr);
+ada_lib.Trace.log_here;
                   end;
                   Listener.Servers := Listener.Servers + 1;
+ada_lib.Trace.log_here;
                   Do_Connect (Listener.all, Client);
+ada_lib.Trace.log_here;
                end loop;
             end;
          end if;
+ada_lib.Trace.log_here;
          Copy (Listener.Read_Sockets,  Listener.Ready_To_Read);
          Copy (Listener.Write_Sockets, Listener.Ready_To_Write);
          Check_Selector
@@ -2395,8 +2413,10 @@ package body GNAT.Sockets.Server is
             Timeout      => Listener.IO_Timeout
          );
          exit when Listener.Finalizing;
+ada_lib.Trace.log_here ("Status " & Status'img);
          if Status = Completed then
             loop -- Reading from sockets
+ada_lib.Trace.log_here;
                Get (Listener.Ready_To_Read, Client_Socket);
                exit when Client_Socket = No_Socket;
                if Client_Socket = Server_Socket then
@@ -2405,6 +2425,7 @@ package body GNAT.Sockets.Server is
                      Client_Socket,
                      Address
                   );
+ada_lib.Trace.log_here;
                   declare
                      Client : Connection_Ptr;
                   begin
@@ -2413,6 +2434,7 @@ package body GNAT.Sockets.Server is
                      if Client = null then
                         Close (Client_Socket);
                      else
+ada_lib.Trace.log_here;
                         declare
                            This : Connection'Class renames Client.all;
                         begin
@@ -2441,11 +2463,14 @@ package body GNAT.Sockets.Server is
                               This.Session := Session_Connected;
                               Connected (This);
                               Connected (Listener.all, This);
+ada_lib.Trace.log_here;
                            else
+ada_lib.Trace.log_here;
                               This.Session := Session_Handshaking;
                            end if;
                         end;
                      end if;
+ada_lib.Trace.log_here;
                   exception
                      when Connection_Error =>
                         if Client /= null then
@@ -2462,6 +2487,7 @@ package body GNAT.Sockets.Server is
                         end if;
                   end;
                else
+ada_lib.Trace.log_here;
                   declare
                      Client : Connection_Ptr :=
                               Get (Listener.Connections, Client_Socket);
@@ -2540,6 +2566,7 @@ package body GNAT.Sockets.Server is
          else
             Empty (Listener.Ready_To_Read); -- Clear the set
          end if;
+ada_lib.Trace.log_here;
          This_Time := Clock;
          if This_Time - That_Time > Listener.Polling_Timeout then
             -- Unblock everything now
@@ -2725,6 +2752,7 @@ package body GNAT.Sockets.Server is
       declare
          Client : Connection_Ptr;
       begin
+ada_lib.Trace.log_here;
          loop
             Listener.Request.Get (Client);
             exit when Client = null;
@@ -2738,8 +2766,10 @@ package body GNAT.Sockets.Server is
       end;
       Close (Server_Socket);
       Trace (Listener.Factory.all, "Worker task exiting");
+ada_lib.Trace.log_here;
    exception
       when Error : others =>
+ada_lib.Trace.Trace_Exception (error);
          Trace_Error (Listener.Factory.all, "Worker task", Error);
    end Worker;
 

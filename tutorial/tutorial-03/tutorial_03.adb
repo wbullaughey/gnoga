@@ -10,7 +10,8 @@
 --  we will do something similar to the previous tutorial.
 
 with Ada.Exceptions;
-
+with Ada_Lib.Trace; use Ada_Lib.Trace;
+with Gnoga.Ada_Lib;
 with Gnoga.Application.Multi_Connect;
 with Gnoga.Gui.Base;
 with Gnoga.Gui.Window;
@@ -42,6 +43,8 @@ procedure Tutorial_03 is
    --  to our previous tutorial. However we access the elements through our
    --  App_Data data structure associated with the connection instead of
    --  globally.
+
+   Trace       : Boolean renames Gnoga.Ada_Lib.Trace;
 
    procedure On_Click (Object : in out Gnoga.Gui.Base.Base_Type'Class) is
       App : constant App_Access := App_Access (Object.Connection_Data);
@@ -82,6 +85,7 @@ procedure Tutorial_03 is
       pragma Unreferenced (Connection);
       App : constant App_Access := new App_Data;
    begin
+      Log_In (Trace);
       App.My_Window := Main_Window'Unchecked_Access;
       Main_Window.Connection_Data (App);
       --  This associates our application data to this connection. Now any
@@ -98,9 +102,12 @@ procedure Tutorial_03 is
       App.My_Exit.On_Click_Handler (On_Exit'Unrestricted_Access);
 
       App.My_View.Horizontal_Rule;
+      Log_Out (Trace);
    end On_Connect;
 
 begin
+log_here;
+   Log_In (Trace);
    Gnoga.Application.Title ("Tutorial 03");
 
    Gnoga.Application.HTML_On_Close ("Application ended.");
@@ -122,4 +129,5 @@ begin
    --  name in the html directory it will be served instead.
 
    Gnoga.Application.Multi_Connect.Message_Loop;
+   Log_Out (Trace);
 end Tutorial_03;

@@ -1,6 +1,8 @@
 obj/
 alire/
+bin/
 config/
+include/
 *.mak
 *.vpwwildcardcache
 *.vpwhistuxml

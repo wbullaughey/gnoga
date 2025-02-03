@@ -1,4 +1,4 @@
-limited with "ada_lib";
+limited with "ada_lib.gpr";
 with "strings_edit.gpr";
 with "tables.gpr";
 
