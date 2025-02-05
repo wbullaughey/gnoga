@@ -22,7 +22,7 @@ package body GNOGA.Ada_Lib is
 
 begin
 -- Trace := True;
-   Ada_Lib.Trace.Log_Here (Trace);
+   Standard.Ada_Lib.Trace.Log_Here (Trace);
 
 end GNOGA.Ada_Lib;
 
