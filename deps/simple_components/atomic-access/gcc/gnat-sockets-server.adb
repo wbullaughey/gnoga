@@ -472,7 +472,6 @@ package body GNAT.Sockets.Server is
             )  return Sock_Addr_Type is
       Address : Sock_Addr_Type;
    begin
-ada_lib.Trace.log_here;
       Address.Addr := Any_Inet_Addr;
       Address.Port := Listener.Port;
       return Address;
@@ -2161,7 +2160,6 @@ ada_lib.Trace.log_here;
          end loop;
       end Unblock;
    begin
-ada_lib.Trace.log_here;
       if Address.Port /= 0 then
          Create_Socket (Server_Socket);
          Set_Socket_Option
