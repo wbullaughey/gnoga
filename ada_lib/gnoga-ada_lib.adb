@@ -18,6 +18,8 @@ package body GNOGA.Ada_Lib is
       Window.Alert (Error_Message);
    end Report_Exception;
 
+begin
+-- Trace := True;
 end GNOGA.Ada_Lib;
 
 
