@@ -2354,7 +2354,7 @@ ada_lib.Trace.log_out (true);
    begin
 ada_lib.Trace.log_here ("port" & Address.Port'img);
       if Address.Port /= 0 then
-ada_lib.Trace.log_here ("address " & ada_lib.socket_io.dump (address));
+ada_lib.Trace.log_here; -- ("address " & ada_lib.socket_io.dump (address));
          Create_Socket (Server_Socket);
 ada_lib.Trace.log_here;
          Set_Socket_Option
@@ -2802,3 +2802,4 @@ ada_lib.Trace.Trace_Exception (error);
    end Box;
 
 end GNAT.Sockets.Server;
+

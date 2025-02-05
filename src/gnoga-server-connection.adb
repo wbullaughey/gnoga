@@ -395,7 +395,7 @@ standard.ada_lib.Trace.log_here ("host " & Host);
       end if;
 
       Address.Port := Listener.Port;
-standard.ada_lib.Trace.log_here ("address " & standard.ada_lib.socket_io.dump (address));
+standard.ada_lib.Trace.log_here; -- ("address " & standard.ada_lib.socket_io.dump (address));
 
       return Address;
    end Get_Server_Address;
