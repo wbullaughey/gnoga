@@ -106,7 +106,6 @@ procedure Tutorial_03 is
    end On_Connect;
 
 begin
-log_here;
    Log_In (Trace);
    Gnoga.Application.Title ("Tutorial 03");
 
