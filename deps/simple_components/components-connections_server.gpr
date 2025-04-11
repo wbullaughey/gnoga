@@ -1,6 +1,10 @@
+with "alr_environment.gpr";
 with "components.gpr";
 
 project Components.Connections_Server is
+
+   for Object_Dir use "obj/" & ALR_Environment.Mode;
+   for Library_Dir use "lib/" & ALR_Environment.Mode;
 
    for Source_Dirs use Components'Source_Dirs;
    for Source_Files use
@@ -46,7 +50,7 @@ project Components.Connections_Server is
       "gnat-sockets-server.ads",
       "gnat-sockets-server.adb",
       "gnat-sockets-server-handles.ads",
-	  "gnat-sockets-server-pooled.adb",
+     "gnat-sockets-server-pooled.adb",
       "gnat-sockets-server-pooled.ads"
    );
 

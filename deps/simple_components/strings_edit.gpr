@@ -1,23 +1,27 @@
+with "alr_environment.gpr";
+
 project Strings_Edit is
 
    type Development_Type is ("Debug", "Release");
    Development : Development_Type := external ("Development", "Debug");
-   
+
    type Legacy_Type is ("Ada95", "Ada2005", "Ada2012");
    Legacy : Legacy_Type := external ("Legacy", "Ada2005");
 
    for Source_Dirs use (".");
-   for Object_Dir use ".";
+-- for Object_Dir use ".";
+   for Object_Dir use "obj/" & ALR_Environment.Mode;
+   for Library_Dir use "lib/" & ALR_Environment.Mode;
 
    for Source_Files use
        (  "strings_edit-base64.adb",
-	      "strings_edit-base64.ads",
-	      "strings_edit-fields.adb",
+         "strings_edit-base64.ads",
+         "strings_edit-fields.adb",
           "strings_edit-fields.ads",
           "strings_edit-floats.ads",
           "strings_edit-float_edit.adb",
           "strings_edit-float_edit.ads",
-          "strings_edit-generic_scale.adb", 
+          "strings_edit-generic_scale.adb",
           "strings_edit-generic_scale.ads",
           "strings_edit-integers-subscript.ads",
           "strings_edit-integers-superscript.ads",
@@ -46,20 +50,20 @@ project Strings_Edit is
           "strings_edit-streams-unsigneds_64.ads",
           "strings_edit-text_edit.adb",
           "strings_edit-utf8-handling.adb",
-          "strings_edit-utf8-handling.ads", 
-          "strings_edit-utf8-categorization.adb", 
+          "strings_edit-utf8-handling.ads",
+          "strings_edit-utf8-categorization.adb",
           "strings_edit-utf8-categorization.ads",
-          "strings_edit-utf8-blocks.ads", 
+          "strings_edit-utf8-blocks.ads",
           "strings_edit-utf8-maps.adb",
           "strings_edit-utf8-maps.ads",
           "strings_edit-utf8-maps-constants.ads",
           "strings_edit-utf8-mapping.adb",
-          "strings_edit-utf8-mapping.ads", 
+          "strings_edit-utf8-mapping.ads",
           "strings_edit-utf8-integer_edit.adb",
           "strings_edit-utf8-integer_edit.ads",
           "strings_edit-utf8-subscript-integer_edit.ads",
           "strings_edit-utf8-subscript.adb",
-          "strings_edit-utf8-subscript.ads", 
+          "strings_edit-utf8-subscript.ads",
           "strings_edit-utf8-superscript-integer_edit.ads",
           "strings_edit-utf8-superscript.adb",
           "strings_edit-utf8-superscript.ads",
