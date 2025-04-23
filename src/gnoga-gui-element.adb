@@ -37,7 +37,7 @@
 
 with Ada.Strings.Fixed;
 with Ada.Exceptions;
-with ADA_LIB.Trace; use ADA_LIB.Trace;
+--with ADA_LIB.Trace; use ADA_LIB.Trace;
 
 with Gnoga.Server.Connection;
 

@@ -8,11 +8,11 @@ with "../deps/simple_components/components-connections_server-secure.gpr";
 
 project Gnoga_Secure is
 
-   for Object_Dir use "obj/" & ALR_Environment.Mode;
+   for Object_Dir use "obj/" & ALR_Environment.Build_Mode;
    for Source_Dirs use (".");
 
    for Library_Name use "gnoga_secure";
-   for Library_Dir use "lib/" & ALR_Environment.Mode;
+   for Library_Dir use "lib/" & ALR_Environment.Build_Mode;
    for Library_Kind use "static";
 
    package Compiler renames Settings.Compiler;

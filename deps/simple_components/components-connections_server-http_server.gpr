@@ -4,8 +4,8 @@ with "components-connections_server.gpr";
 
 project Components.Connections_Server.HTTP_Server is
 
-   for Object_Dir use "obj/" & ALR_Environment.Mode;
-   for Library_Dir use "lib/" & ALR_Environment.Mode;
+   for Object_Dir use "obj/" & ALR_Environment.Build_Mode;
+   for Library_Dir use "lib/" & ALR_Environment.Build_Mode;
    for Source_Files use
        (  "gnat-sockets-connection_state_machine-http_client.adb",
           "gnat-sockets-connection_state_machine-http_client.ads",

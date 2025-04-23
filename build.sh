@@ -1,6 +1,6 @@
-#!/bin/zsh
 source ~/.zshrc
-#alr -v build -- -j10 -s -k -gnatE
-export APPLICATION_PATH="/Users/wayne/Project/git/alr/applications"
-export GPR_PROJECT_PATH="$APPLICATION_PATH:$APPLICATION_PATH/ada_lib"
-make $1
+export BUILD_MODE=$1
+export DIRECTORY=`pwd`
+echo BUILD_MODE $BUILD_MODE BUILD_PROFILE $ADA_APPLICATION_PROFILE ADA_OS_INCLUDE $ADA_OS_INCLUDE
+
+../../../global_build.sh $BUILD_MODE $ADA_APPLICATION_PROFILE $DIRECTORY
