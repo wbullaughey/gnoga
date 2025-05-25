@@ -40,7 +40,7 @@ with Ada.Strings.Fixed;
 
 with Ada.Exceptions;
 with Ada_Lib.Trace; use Ada_Lib.Trace;
-with GNOGA.ADA_LIB;
+with GNOGA_Options;
 with Gnoga.Types;
 
 package body Gnoga.Application.Multi_Connect is
@@ -48,7 +48,7 @@ package body Gnoga.Application.Multi_Connect is
    package Path_Maps is new Ada.Containers.Indefinite_Ordered_Maps
      (String, Application_Connect_Event);
 
-   Trace                         : Boolean renames GNOGA.Ada_Lib.Trace;
+   Trace                         : Boolean renames GNOGA_Options.Debug;
 
    Path_Map : Path_Maps.Map;
 

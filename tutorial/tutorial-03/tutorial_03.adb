@@ -11,7 +11,7 @@
 
 with Ada.Exceptions;
 with Ada_Lib.Trace; use Ada_Lib.Trace;
-with Gnoga.Ada_Lib;
+with GNOGA_Options;
 with Gnoga.Application.Multi_Connect;
 with Gnoga.Gui.Base;
 with Gnoga.Gui.Window;
@@ -44,7 +44,7 @@ procedure Tutorial_03 is
    --  App_Data data structure associated with the connection instead of
    --  globally.
 
-   Trace       : Boolean renames Gnoga.Ada_Lib.Trace;
+   Trace       : Boolean renames GNOGA_Options.Debug;
 
    procedure On_Click (Object : in out Gnoga.Gui.Base.Base_Type'Class) is
       App : constant App_Access := App_Access (Object.Connection_Data);

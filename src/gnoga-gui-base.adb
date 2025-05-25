@@ -42,7 +42,7 @@ with Ada.Strings.Fixed;
 with Ada.Unchecked_Deallocation;
 with Ada.Characters.Conversions;
 with ADA_LIB.Trace; use ADA_LIB.Trace;
-with GNOGA.Ada_Lib;
+with GNOGA_Options;
 with Gnoga.Server.Connection;
 
 package body Gnoga.Gui.Base is
@@ -76,7 +76,7 @@ package body Gnoga.Gui.Base is
                               return String;
    --  Parse on_drop event message
 
-   Trace                         : Boolean renames GNOGA.Ada_Lib.Trace;
+   Trace                         : Boolean renames GNOGA_Options.Debug;
 
    -----------------------
    -- Parse_Mouse_Event --

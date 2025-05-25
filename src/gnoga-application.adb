@@ -37,7 +37,7 @@
 
 with Ada.Strings.Unbounded;
 with Ada_Lib.Trace; use Ada_Lib.Trace;
-with GNOGA.Ada_Lib;
+with GNOGA_Options;
 with GNAT.OS_Lib;
 
 package body Gnoga.Application is
@@ -46,7 +46,7 @@ package body Gnoga.Application is
        ("Gnoga - The GNU Omnificent GUI for Ada");
 
    HTML_For_On_Close : Ada.Strings.Unbounded.Unbounded_String;
-   Trace                         : Boolean renames GNOGA.Ada_Lib.Trace;
+   Trace                         : Boolean renames GNOGA_Options.Debug;
 
 
    ----------------------

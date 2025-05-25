@@ -39,7 +39,7 @@ with Ada.Directories;
 with Ada.Command_Line;
 with Ada_Lib.Trace; use Ada_Lib.Trace;
 with GNAT.OS_Lib;
-with GNOGA.Ada_Lib;
+with GNOGA_Options;
 
 package body Gnoga.Server is
    Exec_Loc : constant GNAT.OS_Lib.String_Access :=
@@ -47,7 +47,7 @@ package body Gnoga.Server is
                   (Ada.Command_Line.Command_Name);
    Exec_Dir : constant String := Exec_Loc.all;
 
-   Trace                         : Boolean renames GNOGA.Ada_Lib.Trace;
+   Trace                         : Boolean renames GNOGA_Options.Debug;
 
 
    function Find_Subdirectory (Sub : String) return String;

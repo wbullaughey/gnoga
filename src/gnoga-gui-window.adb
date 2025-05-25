@@ -47,7 +47,7 @@ with Gnoga.Server.Connection;
 pragma Elaborate (Gnoga.Server.Connection);
 with Gnoga.Gui.Element;
 with Gnoga.Gui.View;
-with GNOGA.Ada_Lib;
+with GNOGA_Options;
 
 package body Gnoga.Gui.Window is
    use type Gnoga.Gui.Base.Action_Event;
@@ -60,7 +60,7 @@ package body Gnoga.Gui.Window is
    function Parse_Storage_Event (Message : String)
                                  return Storage_Event_Record;
 
-   Trace                         : Boolean renames GNOGA.Ada_Lib.Trace;
+   Trace                         : Boolean renames GNOGA_Options.Debug;
    -------------------------
    -- Parse_Storage_Event --
    -------------------------

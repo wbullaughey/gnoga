@@ -36,7 +36,7 @@
 ------------------------------------------------------------------------------
 
 with Ada_Lib.Trace; use Ada_Lib.Trace;
-with GNOGA.ADA_LIB;
+with GNOGA_Options;
 with Gnoga.Server.Connection;
 with Gnoga.Types;
 
@@ -50,7 +50,7 @@ package body Gnoga.Application.Singleton is
    Connection_Holder : Gnoga.Server.Connection.Connection_Holder_Type;
    --  Used to hold the single incoming connection
 
-   Trace                         : Boolean renames GNOGA.Ada_Lib.Trace;
+   Trace                         : Boolean renames GNOGA_Options.Debug;
 
    procedure On_Connect
      (ID         : in     Gnoga.Types.Connection_ID;

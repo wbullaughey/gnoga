@@ -53,7 +53,7 @@ with GNAT.Sockets.Connection_State_Machine.HTTP_Server;
 use  GNAT.Sockets.Connection_State_Machine.HTTP_Server;
 with Ada.Text_IO;
 with Ada.Streams.Stream_IO;
-with GNOGA.ADA_LIB;
+with GNOGA_Options;
 
 with Gnoga.Server.Connection.Common; use Gnoga.Server.Connection.Common;
 with Gnoga.Server.Template_Parser.Simple;
@@ -71,7 +71,7 @@ package body Gnoga.Server.Connection is
 
    Exit_Application_Requested : Boolean := False;
 
-   Debug                         : Boolean renames GNOGA.Ada_Lib.Trace;
+   Debug                         : Boolean renames GNOGA_Options.Debug;
 
    function Global_Gnoga_Client_Factory
      (Listener       : access Connections_Server'Class;
@@ -387,7 +387,7 @@ package body Gnoga.Server.Connection is
       Host    : constant String :=
         Ada.Strings.Unbounded.To_String (Server_Host);
    begin
-standard.ada_lib.Trace.log_here ("host " & Host);
+      Ada_Lib.Trace.Log_Here (Debug, "host " & Host);
       if Host = "" then
          Address.Addr := Any_Inet_Addr;
       else
@@ -395,7 +395,7 @@ standard.ada_lib.Trace.log_here ("host " & Host);
       end if;
 
       Address.Port := Listener.Port;
-standard.ada_lib.Trace.log_here; -- ("address " & standard.ada_lib.socket_io.dump (address));
+      Ada_Lib.Trace.Log_Here (Debug); -- ("address " & standard.ada_lib.socket_io.dump (address));
 
       return Address;
    end Get_Server_Address;

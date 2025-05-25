@@ -5,3 +5,5 @@ abstract project GNOGA_Config
    );
 
 end GNOGA_Config;
+
+with GNAT.Sockets.Connection_State_Machine

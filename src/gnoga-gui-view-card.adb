@@ -36,12 +36,12 @@
 ------------------------------------------------------------------------------
 
 with Ada_Lib.Trace; use Ada_Lib.Trace;
-with Gnoga.Ada_Lib;
+with GNOGA_Options;
 with Gnoga.Gui.Element.Style_Block;
 
 package body Gnoga.Gui.View.Card is
 
-   Trace                         : Boolean renames GNOGA.Ada_Lib.Trace;
+   Trace                         : Boolean renames GNOGA_Options.Debug;
 
    ------------
    -- Create --
