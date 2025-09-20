@@ -1,0 +1,62 @@
+<h1 id="thegnoganativemacapplicationuserguide">The Gnoga Native Mac Application User Guide</h1>
+
+<h2 id="gnoga-thegnuomnificientguiforada">Gnoga - The GNU Omnificient GUI for Ada</h2>
+
+<p>(c) 2014 David Botton
+ Permission is granted to copy, distribute and/or modify this document
+ under the terms of the GNU Free Documentation License, Version 1.3
+ or any later version published by the Free Software Foundation;
+ with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+ A copy of the license is included in the section entitled &#8220;GNU
+ Free Documentation License&#8221;.</p>
+
+<p>For more information about Gnoga see http://www.gnoga.com</p>
+
+<hr />
+
+<h3 id="tableofcontents">Table of Contents</h3>
+
+<ul>
+<li>Introduction</li>
+<li>How does it work?</li>
+<li>Is it Mac App Store Compatible?</li>
+<li>Getting Started</li>
+<li>The MacGap Plugin</li>
+</ul>
+
+<h2 id="introduction">Introduction</h2>
+
+<h3 id="howdoesitwork">How does it work?</h3>
+
+<p>Gnoga takes advantage of a project called MacGap to provide a ready to go XCode project that contains a WebView which is a standard feature of native OS X apps and various extensions to it that provide JavaScript access to common native Mac OS X functionality. A Gnoga app is placed in to the MacGap project and all of its supporting files. When the MacGap application starts it loads the Gnoga application. Using the MacGap plugin for Gnoga the application has access to all the native features MacGap exposed view JavaScript.</p>
+
+<h3 id="isitmacappstorecompatible">Is it Mac App Store Compatible?</h3>
+
+<p>MacGap which is used by Gnoga for native Mac apps makes use of WebViews which is a standard feature that is available when developing native OS X apps within XCode. The API that is added is also based on official API&#8217;s provided by Apple. Therefore there are no dirty hacks, no embedded chrome browser or anything that would stand in your way for Mac App Store submission.</p>
+
+<h2 id="gettingstarted">Getting Started</h2>
+
+<ol>
+<li>Create a singleton app using Gnoga</li>
+<li>Make native support for Mac using:
+ make native_osx</li>
+<li>Copy your project&#8217;s individual bin, js, etc. directories to deps/MacGap2/public</li>
+<li>Modify the index.html file in deps/MacGap2/public to contain the following lines:</li>
+</ol>
+
+<pre><code class="html">   &lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;
+   var p = MacGap.resourcePath + &quot;/public/bin/YOUR_GNOGA_APP_NAME&quot;;
+   MacGap.launch (p);
+   window.open(&quot;http://127.0.0.1:8080&quot;,&quot;_self&quot;)
+   &lt;/script&gt;
+</code></pre>
+
+<p>Note: The index.html page can be used to display some sort of &#8220;loading&#8221;
+ message if desired, although usually loading is instant.
+5. From the deps directory run - open MacGap2/MG.xcodeproj/
+6. Build as you would any native Mac OS X application for XCode</p>
+
+<h2 id="themacgapplugin">The MacGap Plugin</h2>
+
+<p>There is extensive support for native Mac OS X functionality via the MacGap
+binding. See Gnoga.Gui.Plugin.MacGap</p>

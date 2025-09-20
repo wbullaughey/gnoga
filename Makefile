@@ -330,7 +330,7 @@ clean:
 	- cd bin && $(RM) gnoga-test
 
 bin/multimarkdown:
-	- cd deps && git clone git://github.com/fletcher/MultiMarkdown-4.git
+	- cd deps && git clone git@github.com:fletcher/MultiMarkdown-4.git
 	- cd deps/MultiMarkdown-4 && git submodule init
 	- cd deps/MultiMarkdown-4 && git submodule update
 	- cd deps/MultiMarkdown-4 && make
