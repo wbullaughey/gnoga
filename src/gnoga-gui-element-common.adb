@@ -35,6 +35,8 @@
 -- For more information please go to http://www.gnoga.com                   --
 ------------------------------------------------------------------------------
 
+-- with Ada_Lib.Trace;
+
 package body Gnoga.Gui.Element.Common is
 
    -------------------------------------------------------------------------

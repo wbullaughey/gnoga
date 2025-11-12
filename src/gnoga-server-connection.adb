@@ -42,7 +42,7 @@ with Ada.Unchecked_Deallocation;
 with Ada.Exceptions;
 
 with Ada.Containers.Ordered_Maps;
-with ada_lib.socket_io;
+--with ada_lib.socket_io;
 with Ada_Lib.Trace;
 
 with Gnoga.Server.Mime;
@@ -477,7 +477,7 @@ package body Gnoga.Server.Connection is
       begin
          if File_Name = "gnoga_ajax" then
             return File_Name;
-         elsif Start = "" and File_Name = "" then
+         elsif Start = "" and then File_Name = "" then
             return Gnoga.Server.HTML_Directory & To_String (Boot_HTML);
          elsif Start = "js" then
             return Gnoga.Server.JS_Directory & Path_Adjusted_Name;
@@ -640,7 +640,7 @@ package body Gnoga.Server.Connection is
 
       Parameters : Gnoga.Types.Data_Map_Type;
    begin
-      if On_Post_Event /= null and Status.Kind = File then
+      if On_Post_Event /= null and then Status.Kind = File then
          for i in 1 .. Client.Get_CGI_Size loop
             Parameters.Insert (Client.Get_CGI_Key (i),
                                Client.Get_CGI_Value (i));
@@ -1061,7 +1061,7 @@ package body Gnoga.Server.Connection is
 
       procedure Finalize_Connection (ID : in Gnoga.Types.Connection_ID) is
       begin
-         if (ID > 0) and Socket_Map.Contains (ID) then
+         if (ID > 0) and then Socket_Map.Contains (ID) then
             if Verbose_Output then
                Gnoga.Log ("Finalizing connection -" & ID'Img);
             end if;
@@ -1358,14 +1358,14 @@ package body Gnoga.Server.Connection is
    is
       use Ada.Strings.Fixed;
 
-      use type Gnoga.Types.Connection_ID;
+--    use type Gnoga.Types.Connection_ID;
 
       Status : Status_Line renames Get_Status_Line (Client.all);
 
       F : constant String := Status.File;
    begin
       Standard.Ada_Lib.Trace.Log_In (Debug, Standard.Ada_Lib.Trace.Quote ("F", F));
-      if F /= "gnoga" and Index (F, "gnoga?") = 0 then
+      if F /= "gnoga" and then Index (F, "gnoga?") = 0 then
          Gnoga.Log ("Invalid URL for Websocket");
          declare
             Reason : constant String := "Invalid URL";
@@ -1437,7 +1437,7 @@ package body Gnoga.Server.Connection is
       Connection_Manager.Add_Connection (Socket => S,
                                          New_ID => ID);
 
-      if Old_ID /= "" and Old_ID /= "undefined" then
+      if Old_ID /= "" and then Old_ID /= "undefined" then
          if Verbose_Output then
             Gnoga.Log ("Swapping websocket connection " &
                          ID'Img & " <=> " & Old_ID);
@@ -1932,7 +1932,7 @@ package body Gnoga.Server.Connection is
       if Connection_Manager.Valid (ID) then
          Socket :=
            Connection_Manager.Connection_Socket (ID);
-         if Socket.Content.Buffer.Buffering and
+         if Socket.Content.Buffer.Buffering and then
            Socket.Content.Connection_Type = WebSocket
          then
             Socket.Content.Buffer.Buffering (False);
@@ -2005,7 +2005,7 @@ package body Gnoga.Server.Connection is
       end Try_Execute;
 
    begin
-      if Connection_Manager.Valid (ID) and UTF8_Script /= "" then
+      if Connection_Manager.Valid (ID) and then UTF8_Script /= "" then
          if not Buffer_Add (ID, UTF8_Script) then
             Try_Execute;
          end if;
@@ -2354,8 +2354,8 @@ package body Gnoga.Server.Connection is
    procedure Stop is
       ID : Gnoga.Types.Connection_ID;
    begin
-      if not Exit_Application_Requested and
-        Watchdog /= null and
+      if not Exit_Application_Requested and then
+        Watchdog /= null and then
         Gnoga_HTTP_Server /= null
       then
          Exit_Application_Requested := True;
