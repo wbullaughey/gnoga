@@ -34,7 +34,7 @@
 --                                                                          --
 -- For more information please go to http://www.gnoga.com                   --
 ------------------------------------------------------------------------------
---with ADA_LIB.Trace; use ADA_LIB.Trace;
+--with Ada_Lib.Trace; use Ada_Lib.Trace;
 
 package body Gnoga.Gui.Document is
 

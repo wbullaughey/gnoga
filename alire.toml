@@ -7,6 +7,9 @@ maintainers = ["Your Name <example@example.com>"]
 maintainers-logins = ["github-username"]
 licenses = "MIT OR Apache-2.0 WITH LLVM-exception"
 website = ""
+
+project-files = "gnoga.gpr"
+
 tags = []
 
 [[depends-on]]
@@ -26,3 +29,7 @@ gnoga_options = "~0.1.0-dev"
 
 [[pins]]
 gnoga_options = { path='../../../gnoga_lib/gnoga_options' }
+
+[[depends-on]]
+gnatcoll = "*"
+

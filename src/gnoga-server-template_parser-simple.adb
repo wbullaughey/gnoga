@@ -36,7 +36,7 @@
 ------------------------------------------------------------------------------
 
 with Ada.Text_IO;
---with ADA_LIB.Trace; use ADA_LIB.Trace;
+--with Ada_Lib.Trace; use Ada_Lib.Trace;
 
 package body Gnoga.Server.Template_Parser.Simple is
    ---------------

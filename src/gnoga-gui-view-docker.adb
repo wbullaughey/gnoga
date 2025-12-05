@@ -36,7 +36,7 @@
 ------------------------------------------------------------------------------
 
 with Ada.Exceptions;
---with ADA_LIB.Trace; use ADA_LIB.Trace;
+--with Ada_Lib.Trace; use Ada_Lib.Trace;
 
 package body Gnoga.Gui.View.Docker is
 

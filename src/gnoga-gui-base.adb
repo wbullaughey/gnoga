@@ -41,7 +41,7 @@ with Ada.Strings.Unbounded;
 with Ada.Strings.Fixed;
 with Ada.Unchecked_Deallocation;
 with Ada.Characters.Conversions;
-with ADA_LIB.Trace; use ADA_LIB.Trace;
+with Ada_Lib.Trace; use Ada_Lib.Trace;
 with GNOGA_Options;
 with Gnoga.Server.Connection;
 
