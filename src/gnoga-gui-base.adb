@@ -41,8 +41,10 @@ with Ada.Strings.Unbounded;
 with Ada.Strings.Fixed;
 with Ada.Unchecked_Deallocation;
 with Ada.Characters.Conversions;
+with Ada_Lib.Options;
+with Ada_Lib.String_Quote; use Ada_Lib.String_Quote;
 with Ada_Lib.Trace; use Ada_Lib.Trace;
-with GNOGA_Options;
+--with GNOGA_Options;
 with Gnoga.Server.Connection;
 
 package body Gnoga.Gui.Base is
@@ -76,7 +78,7 @@ package body Gnoga.Gui.Base is
                               return String;
    --  Parse on_drop event message
 
-   Trace                         : Boolean renames GNOGA_Options.Debug;
+   Debug    : Boolean renames Ada_Lib.Options.GNOGA.Debug;
 
    -----------------------
    -- Parse_Mouse_Event --
@@ -1040,7 +1042,7 @@ package body Gnoga.Gui.Base is
       Object.On_Click_Event := Handler;
 
       if Handler /= null and Object.On_Mouse_Click_Event = null then
-         Log_Here (Trace, "ID " & Object.Unique_Id'img);
+         Log_Here (Debug, "ID " & Object.Unique_Id'img);
          Object.Bind_Event (Event   => "click",
                             Message => "",
                             Script  => Mouse_Event_Script);
@@ -1051,7 +1053,7 @@ package body Gnoga.Gui.Base is
    is
    begin
       if Object.On_Click_Event /= null then
-         Log_Here (Trace);
+         Log_Here (Debug);
          Object.On_Click_Event (Object);
       end if;
    end Fire_On_Click;
@@ -1074,7 +1076,7 @@ package body Gnoga.Gui.Base is
       Object.On_Mouse_Click_Event := Handler;
 
       if Handler /= null and Object.On_Click_Event = null then
-         Log_Here (Trace, "Unique_ID " & Object.Unique_ID'img);
+         Log_Here (Debug, "Unique_ID " & Object.Unique_ID'img);
          Object.Bind_Event (Event   => "click",
                             Message => "",
                             Script  => Mouse_Event_Script);
@@ -1086,7 +1088,7 @@ package body Gnoga.Gui.Base is
    is
    begin
       if Object.On_Mouse_Click_Event /= null then
-         Log_Here (Trace);
+         Log_Here (Debug);
          Object.On_Mouse_Click_Event (Object, Event);
       end if;
    end Fire_On_Mouse_Click;

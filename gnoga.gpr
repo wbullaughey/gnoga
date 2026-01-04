@@ -1,5 +1,5 @@
 with "alr_environment.gpr";
-limited with "ada_lib";
+--limited with "ada_lib";
 --with "config/gnoga_config.gpr";
 with "gnatcoll.gpr";
 with "gnoga_options.gpr";

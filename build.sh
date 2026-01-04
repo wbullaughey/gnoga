@@ -7,5 +7,6 @@ export WHICH=$1
 #   help_test  - builds help_test at level
 
 echo build WHICH $WHICH
+export BUILD_LIBRARY=GNOGA_LIBRARY
 
 ../../../global_build.sh $WHICH library

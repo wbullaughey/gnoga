@@ -42,7 +42,8 @@ with Ada.Unchecked_Deallocation;
 with Ada.Exceptions;
 
 with Ada.Containers.Ordered_Maps;
---with ada_lib.socket_io;
+with Ada_Lib.Options;
+with Ada_Lib.String_Quote; use Ada_Lib.String_Quote;
 with Ada_Lib.Trace;
 
 with Gnoga.Server.Mime;
@@ -53,7 +54,7 @@ with GNAT.Sockets.Connection_State_Machine.HTTP_Server;
 use  GNAT.Sockets.Connection_State_Machine.HTTP_Server;
 with Ada.Text_IO;
 with Ada.Streams.Stream_IO;
-with GNOGA_Options;
+--with GNOGA_Options;
 
 with Gnoga.Server.Connection.Common; use Gnoga.Server.Connection.Common;
 with Gnoga.Server.Template_Parser.Simple;
@@ -71,7 +72,7 @@ package body Gnoga.Server.Connection is
 
    Exit_Application_Requested : Boolean := False;
 
-   Debug                         : Boolean renames GNOGA_Options.Debug;
+   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Debug;
 
    function Global_Gnoga_Client_Factory
      (Listener       : access Connections_Server'Class;
@@ -584,9 +585,9 @@ package body Gnoga.Server.Connection is
                      exception
                         when Fault: others =>
                            Standard.Ada_Lib.Trace.Trace_Message_Exception (Fault,
-                              Standard.Ada_Lib.Trace.Quote (
+                              Standard.Ada_Lib.String_Quote.Quote (
                                  "could not open file M:", M) &
-                              Standard.Ada_Lib.Trace.Quote (" F:", F));
+                              Standard.Ada_Lib.String_Quote.Quote (" F:", F));
                            raise;
                      end;
                   end if;
@@ -599,7 +600,7 @@ package body Gnoga.Server.Connection is
             Reply_Text (Client,
                         404,
                         "Not found",
-                        "No URI " & Standard.Ada_Lib.Trace.Quote (Status.Path) & " found");
+                        "No URI " & Standard.Ada_Lib.String_Quote.Quote (Status.Path) & " found");
       end case;
    exception
       when E : others =>
@@ -761,8 +762,8 @@ package body Gnoga.Server.Connection is
    is
    begin
       Standard.Ada_Lib.Trace.Log_In (Debug,
-         Standard.Ada_Lib.Trace.Quote ("host", Host) &
-         Standard.Ada_Lib.Trace.Quote (" boot", Boot) &
+         Standard.Ada_Lib.String_Quote.Quote ("host", Host) &
+         Standard.Ada_Lib.String_Quote.Quote (" boot", Boot) &
          " port" & Port'img);
       Verbose_Output := Verbose;
 
@@ -1364,7 +1365,7 @@ package body Gnoga.Server.Connection is
 
       F : constant String := Status.File;
    begin
-      Standard.Ada_Lib.Trace.Log_In (Debug, Standard.Ada_Lib.Trace.Quote ("F", F));
+      Standard.Ada_Lib.Trace.Log_In (Debug, Standard.Ada_Lib.String_Quote.Quote ("F", F));
       if F /= "gnoga" and then Index (F, "gnoga?") = 0 then
          Gnoga.Log ("Invalid URL for Websocket");
          declare
@@ -1741,8 +1742,8 @@ package body Gnoga.Server.Connection is
 
       begin
          Standard.Ada_Lib.Trace.Log_Here (Debug,
-            Standard.Ada_Lib.Trace.Quote ("event", Event) &
-               Standard.Ada_Lib.Trace.quote (" data", data));
+            Standard.Ada_Lib.String_Quote.Quote ("event", Event) &
+               Standard.Ada_Lib.String_Quote.Quote (" data", data));
 
          Object.Fire_On_Message (Event, Data, Continue);
 

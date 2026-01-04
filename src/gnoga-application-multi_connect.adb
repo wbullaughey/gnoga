@@ -39,8 +39,10 @@ with Ada.Containers.Indefinite_Ordered_Maps;
 with Ada.Strings.Fixed;
 
 with Ada.Exceptions;
+with Ada_Lib.Options;
+with Ada_Lib.String_Quote; use Ada_Lib.String_Quote;
 with Ada_Lib.Trace; use Ada_Lib.Trace;
-with GNOGA_Options;
+--with GNOGA_Options;
 with Gnoga.Types;
 
 package body Gnoga.Application.Multi_Connect is
@@ -48,7 +50,7 @@ package body Gnoga.Application.Multi_Connect is
    package Path_Maps is new Ada.Containers.Indefinite_Ordered_Maps
      (String, Application_Connect_Event);
 
-   Trace                         : Boolean renames GNOGA_Options.Debug;
+   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Debug;
 
    Path_Map : Path_Maps.Map;
 
@@ -81,7 +83,7 @@ package body Gnoga.Application.Multi_Connect is
          Q : Integer := Index (P, "?");
          H : constant Integer := Index (P, "#", Ada.Strings.Backward);
       begin
-         Log_Here (Trace, Quote ("p", P));
+         Log_Here (Debug, Quote ("p", P));
          if Q = 0 then
             if H = 0 then
                Q := P'Last + 1;
@@ -93,7 +95,7 @@ package body Gnoga.Application.Multi_Connect is
          return P (P'First .. Q - 1);
       end Get_Path;
    begin
-      Log_In (Trace, "ID" & ID'img);
+      Log_In (Debug, "ID" & ID'img);
       Main_Window.Attach (Connection_ID => ID);
       Main_Window.Document.Title (Title);
       Server.Connection.HTML_On_Close (ID, HTML_On_Close);
@@ -102,7 +104,7 @@ package body Gnoga.Application.Multi_Connect is
          Path : constant String := Right_Trim_Slashes (Get_Path);
       begin
          if Path_Map.Contains (Path) then
-            Log_Here (Trace, Quote ("path", Path));
+            Log_Here (Debug, Quote ("path", Path));
             Path_Map.Element (Path) (Main_Window, Connection);
 
             Server.Connection.Flush_Buffer (ID);
@@ -111,7 +113,7 @@ package body Gnoga.Application.Multi_Connect is
 
             --  If connection was already released this will not block.
          elsif Path_Map.Contains ("default") then
-            Log_Here (Trace, Quote ("path", Path));
+            Log_Here (Debug, Quote ("path", Path));
             Path_Map.Element ("default") (Main_Window, Connection);
 
             Server.Connection.Flush_Buffer (ID);
@@ -124,7 +126,7 @@ package body Gnoga.Application.Multi_Connect is
             Server.Connection.HTML_On_Close (ID, "No route to path.");
          end if;
       end;
-      Log_Out (Trace);
+      Log_Out (Debug);
 
    exception
       when E : Gnoga.Server.Connection.Connection_Error =>
@@ -153,7 +155,7 @@ package body Gnoga.Application.Multi_Connect is
       Verbose : in Boolean                   := True)
    is
    begin
-      Log_In (Trace, Quote ("boot", Boot) & " port" & Port'img &
+      Log_In (Debug, Quote ("boot", Boot) & " port" & Port'img &
          (if Event = Null then
             " null"
          else
@@ -171,7 +173,7 @@ package body Gnoga.Application.Multi_Connect is
       if Event /= null then
          On_Connect_Handler (Event);
       end if;
-      Log_Out (Trace);
+      Log_Out (Debug);
    end Initialize;
 
    ------------------------
@@ -182,7 +184,7 @@ package body Gnoga.Application.Multi_Connect is
                                  Path  : in String := "default")
    is
    begin
-      Log_Here (Trace, Quote ("path", Path));
+      Log_Here (Debug, Quote ("path", Path));
       Path_Map.Include (Right_Trim_Slashes (Left_Trim_Slashes (Path)), Event);
    end On_Connect_Handler;
 

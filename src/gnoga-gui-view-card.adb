@@ -35,13 +35,15 @@
 -- For more information please go to http://www.gnoga.com                   --
 ------------------------------------------------------------------------------
 
+with Ada_Lib.Options;
+with Ada_Lib.String_Quote; use Ada_Lib.String_Quote;
 with Ada_Lib.Trace; use Ada_Lib.Trace;
-with GNOGA_Options;
+--with GNOGA_Options;
 with Gnoga.Gui.Element.Style_Block;
 
 package body Gnoga.Gui.View.Card is
 
-   Trace                         : Boolean renames GNOGA_Options.Debug;
+   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Debug;
 
    ------------
    -- Create --
@@ -232,7 +234,7 @@ package body Gnoga.Gui.View.Card is
    is
       T : constant Tab_Item_Access := new Tab_Item_Type;
    begin
-      Log_In (Trace, Quote ("card", Card) & Quote (" label", Label) &
+      Log_In (Debug, Quote ("card", Card) & Quote (" label", Label) &
          " selected " & Selected'img);
       T.Dynamic;
       T.Create (Parent => Tab,
@@ -242,7 +244,7 @@ package body Gnoga.Gui.View.Card is
       if Selected then
          Tab.Select_Tab (Card);
       end if;
-      Log_Out (Trace);
+      Log_Out (Debug);
    end Add_Tab;
 
    ----------------

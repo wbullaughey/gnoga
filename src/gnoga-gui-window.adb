@@ -40,6 +40,8 @@ with Ada.Strings.Maps;
 with Ada.Calendar.Formatting;
 with Ada.Unchecked_Deallocation;
 with Ada.Exceptions;
+with Ada_Lib.Options;
+with Ada_Lib.String_Quote; use Ada_Lib.String_Quote;
 with Ada_Lib.Trace; use Ada_Lib.Trace;
 
 with Gnoga.Client.Storage;
@@ -47,7 +49,7 @@ with Gnoga.Server.Connection;
 pragma Elaborate (Gnoga.Server.Connection);
 with Gnoga.Gui.Element;
 with Gnoga.Gui.View;
-with GNOGA_Options;
+--with GNOGA_Options;
 
 package body Gnoga.Gui.Window is
    use type Gnoga.Gui.Base.Action_Event;
@@ -60,7 +62,7 @@ package body Gnoga.Gui.Window is
    function Parse_Storage_Event (Message : String)
                                  return Storage_Event_Record;
 
-   Trace                         : Boolean renames GNOGA_Options.Debug;
+   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Debug;
    -------------------------
    -- Parse_Storage_Event --
    -------------------------
@@ -146,7 +148,7 @@ package body Gnoga.Gui.Window is
    is
       use type Gnoga.Types.ID_Enumeration;
    begin
-      Log_In (Trace, "Connection_ID" & Connection_ID'img & Quote (" ID", ID));
+      Log_In (Debug, "Connection_ID" & Connection_ID'img & Quote (" ID", ID));
       if ID_Type = Gnoga.Types.DOM_ID then
          raise Invalid_ID_Type;
       end if;
@@ -166,7 +168,7 @@ package body Gnoga.Gui.Window is
 
       Window.Bind_Event (Event   => "resize",
                          Message => "");
-      Log_Out (Trace);
+      Log_Out (Debug);
    end Attach;
 
    procedure Attach
@@ -181,13 +183,13 @@ package body Gnoga.Gui.Window is
         (Parent.Connection_ID,
          Base.Script_Accessor (ID, ID_Type) & ".gnoga['Connection_ID']");
    begin
-      Log_In (Trace, Quote  ("ID" & ID));
+      Log_In (Debug, Quote  ("ID" & ID));
       if ID_Type = Gnoga.Types.DOM_ID then
          raise Invalid_ID_Type;
       end if;
 
       Attach (Window, Gnoga.Types.Connection_ID'Value (CID));
-      Log_Out (Trace);
+      Log_Out (Debug);
 
    exception
       when E : others =>

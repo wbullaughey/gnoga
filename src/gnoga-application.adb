@@ -36,8 +36,9 @@
 ------------------------------------------------------------------------------
 
 with Ada.Strings.Unbounded;
+with Ada_Lib.Options;
 with Ada_Lib.Trace; use Ada_Lib.Trace;
-with GNOGA_Options;
+--with GNOGA_Options;
 with GNAT.OS_Lib;
 
 package body Gnoga.Application is
@@ -46,7 +47,7 @@ package body Gnoga.Application is
        ("Gnoga - The GNU Omnificent GUI for Ada");
 
    HTML_For_On_Close : Ada.Strings.Unbounded.Unbounded_String;
-   Trace                         : Boolean renames GNOGA_Options.Debug;
+   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Debug;
 
 
    ----------------------
@@ -125,9 +126,9 @@ package body Gnoga.Application is
 
    procedure Open_URL (url : String := "http://127.0.0.1:8080") is
    begin
-      Log_In (Trace);
+      Log_In (Debug);
       Open_URL_OSX (url);
-      Log_Out (Trace);
+      Log_Out (Debug);
    end Open_URL;
 
 end Gnoga.Application;

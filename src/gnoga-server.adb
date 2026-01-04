@@ -37,9 +37,11 @@
 
 with Ada.Directories;
 with Ada.Command_Line;
+with Ada_Lib.Options;
+with Ada_Lib.String_Quote; use Ada_Lib.String_Quote;
 with Ada_Lib.Trace; use Ada_Lib.Trace;
 with GNAT.OS_Lib;
-with GNOGA_Options;
+--with GNOGA_Options;
 
 package body Gnoga.Server is
    Exec_Loc : constant GNAT.OS_Lib.String_Access :=
@@ -47,7 +49,7 @@ package body Gnoga.Server is
                   (Ada.Command_Line.Command_Name);
    Exec_Dir : constant String := Exec_Loc.all;
 
-   Trace                         : Boolean renames GNOGA_Options.Debug;
+   Debug    : Boolean renames Ada_Lib.Options.GNOGA.Server_Debug;
 
 
    function Find_Subdirectory (Sub : String) return String;
@@ -64,7 +66,7 @@ package body Gnoga.Server is
       Html : constant String := Application_Directory & "html" &
                GNAT.OS_Lib.Directory_Separator;
    begin
-      Log_Here (Trace, Quote ("Sub", Sub) & Quote (" Dir", Dir) &
+      Log_Here (Debug, Quote ("Sub", Sub) & Quote (" Dir", Dir) &
          Quote (" Html", Html));
       if Ada.Directories.Exists (Dir) then
          return Dir;
@@ -91,7 +93,7 @@ package body Gnoga.Server is
    function Application_Directory return String is
       Exe : constant String := Executable_Directory;
    begin
-      Log_Here (Trace, Quote ("Exe", Exe));
+      Log_Here (Debug, Quote ("Exe", Exe));
       if Exe (Exe'Last - 3 .. Exe'Last - 1) = "bin" then
          return Exe (Exe'First .. Exe'Last - 4);
       else
@@ -105,7 +107,7 @@ package body Gnoga.Server is
 
    function Executable_Directory return String is
    begin
-      Log_Here (Trace, Quote ("Exec_Dir", Exec_Dir));
+      Log_Here (Debug, Quote ("Exec_Dir", Exec_Dir));
       return Ada.Directories.Containing_Directory (Exec_Dir) &
         GNAT.OS_Lib.Directory_Separator;
    end Executable_Directory;

@@ -35,8 +35,9 @@
 -- For more information please go to http://www.gnoga.com                   --
 ------------------------------------------------------------------------------
 
+with Ada_Lib.Options;
 with Ada_Lib.Trace; use Ada_Lib.Trace;
-with GNOGA_Options;
+--with GNOGA_Options;
 with Gnoga.Server.Connection;
 with Gnoga.Types;
 
@@ -50,7 +51,7 @@ package body Gnoga.Application.Singleton is
    Connection_Holder : Gnoga.Server.Connection.Connection_Holder_Type;
    --  Used to hold the single incoming connection
 
-   Trace                         : Boolean renames GNOGA_Options.Debug;
+   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Debug;
 
    procedure On_Connect
      (ID         : in     Gnoga.Types.Connection_ID;
@@ -111,7 +112,7 @@ package body Gnoga.Application.Singleton is
       Verbose     : in     Boolean := True)
    is
    begin
-      Log_In (Trace);
+      Log_In (Debug);
       Gnoga.Server.Connection.Initialize (Host, Port, Boot, Verbose);
 
       Gnoga.Server.Connection.On_Connect_Handler
