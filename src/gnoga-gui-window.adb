@@ -62,7 +62,7 @@ package body Gnoga.Gui.Window is
    function Parse_Storage_Event (Message : String)
                                  return Storage_Event_Record;
 
-   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Debug;
+   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Library_Debug;
    -------------------------
    -- Parse_Storage_Event --
    -------------------------

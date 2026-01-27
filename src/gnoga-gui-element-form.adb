@@ -35,6 +35,8 @@
 -- For more information please go to http://www.gnoga.com                   --
 ------------------------------------------------------------------------------
 
+with Ada_Lib.Trace; use Ada_Lib.Trace;
+
 package body Gnoga.Gui.Element.Form is
 
    -------------------------------------------------------------------------
@@ -54,11 +56,17 @@ package body Gnoga.Gui.Element.Form is
       ID      : in     String           := "")
    is
    begin
+log_here;
       Form.Create_From_HTML (Parent, "<form action=""" &
                                Escape_Quotes (Action) &
                                """ method=""" & Method'Img &
                                """ target=""" & Target &
                                """ />", ID);
+exception
+
+when Fault: others =>
+Log_Exception (True, Fault);
+raise;
    end Create;
 
    ------------

@@ -47,7 +47,7 @@ package body Gnoga.Application is
        ("Gnoga - The GNU Omnificent GUI for Ada");
 
    HTML_For_On_Close : Ada.Strings.Unbounded.Unbounded_String;
-   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Debug;
+   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Library_Debug;
 
 
    ----------------------

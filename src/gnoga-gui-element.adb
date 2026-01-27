@@ -37,7 +37,7 @@
 
 with Ada.Strings.Fixed;
 with Ada.Exceptions;
---with Ada_Lib.Trace; use Ada_Lib.Trace;
+with Ada_Lib.Trace; use Ada_Lib.Trace;
 
 with Gnoga.Server.Connection;
 
@@ -71,9 +71,11 @@ package body Gnoga.Gui.Element is
 
       GID : constant String := Adjusted_ID;
    begin
+log_here;
       if Gnoga.Server.Connection.Connection_Type (Parent.Connection_ID) =
         Long_Polling
       then
+log_here;
          declare
             use Ada.Strings.Fixed;
 
@@ -102,6 +104,7 @@ package body Gnoga.Gui.Element is
             end;
          end;
       else
+log_here;
          Element.Create_With_Script
            (Connection_ID => Parent.Connection_ID,
             ID            => GID,
@@ -112,6 +115,12 @@ package body Gnoga.Gui.Element is
       end if;
 
       Element.Parent (Parent);
+log_here;
+exception
+
+when Fault: others =>
+Log_Exception (True, Fault);
+raise;
    end Create_From_HTML;
 
    ------------------------

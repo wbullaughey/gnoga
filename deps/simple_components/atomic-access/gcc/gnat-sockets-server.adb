@@ -2160,6 +2160,7 @@ package body GNAT.Sockets.Server is
          end loop;
       end Unblock;
    begin
+Ada_Lib.Trace.Log_Here;
       if Address.Port /= 0 then
          Create_Socket (Server_Socket);
          Set_Socket_Option

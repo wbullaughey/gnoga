@@ -72,7 +72,7 @@ package body Gnoga.Server.Connection is
 
    Exit_Application_Requested : Boolean := False;
 
-   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Debug;
+   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Library_Debug;
 
    function Global_Gnoga_Client_Factory
      (Listener       : access Connections_Server'Class;
@@ -2151,15 +2151,24 @@ package body Gnoga.Server.Connection is
    function Connection_Type (ID : Gnoga.Types.Connection_ID)
                              return Gnoga_Connection_Type
    is
+begin
+Ada_Lib.Trace.log_here (id'img);
+declare
       Socket : constant Socket_Type :=
         Connection_Manager.Connection_Socket (ID);
    begin
+Ada_Lib.Trace.log_here;
       return Socket.Content.Connection_Type;
+end;
    exception
       when E : Connection_Error =>
+Ada_Lib.Trace.Log_Exception (True, E);
          Log ("Error Connection_Type -" & ID'Img);
          Log (Ada.Exceptions.Exception_Information (E));
          return None;
+when Fault: others =>
+Ada_Lib.Trace.Log_Exception (True, Fault);
+raise;
    end Connection_Type;
 
    ---------------------

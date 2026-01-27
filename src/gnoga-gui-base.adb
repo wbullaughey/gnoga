@@ -78,7 +78,7 @@ package body Gnoga.Gui.Base is
                               return String;
    --  Parse on_drop event message
 
-   Debug    : Boolean renames Ada_Lib.Options.GNOGA.Debug;
+   Debug    : Boolean renames Ada_Lib.Options.GNOGA.Library_Debug;
 
    -----------------------
    -- Parse_Mouse_Event --
@@ -411,7 +411,15 @@ package body Gnoga.Gui.Base is
                            return Gnoga.Types.Connection_ID
    is
    begin
+log_here (Object.Connection_ID'img);
       return Object.Connection_ID;
+
+exception
+
+when Fault: others =>
+Log_Exception (True, Fault);
+raise;
+
    end Connection_ID;
 
    procedure Connection_ID (Object : in out Base_Type;
@@ -1345,17 +1353,22 @@ package body Gnoga.Gui.Base is
                                     Handler : in     Mouse_Event)
    is
    begin
+log_here;
       if Object.On_Mouse_Down_Event /= null then
+log_here;
          Object.Unbind_Event ("mousedown");
       end if;
 
       Object.On_Mouse_Down_Event := Handler;
+log_here;
 
       if Handler /= null then
+log_here;
          Object.Bind_Event (Event   => "mousedown",
                             Message => "",
                             Script  => Mouse_Event_Script);
       end if;
+log_here;
    end On_Mouse_Down_Handler;
 
    procedure Fire_On_Mouse_Down (Object   : in out Base_Type;
@@ -1405,6 +1418,7 @@ package body Gnoga.Gui.Base is
                                     Handler : in     Mouse_Event)
    is
    begin
+log_here;
       if Object.On_Mouse_Move_Event /= null then
          Object.Unbind_Event ("mousemove");
       end if;
@@ -1416,6 +1430,7 @@ package body Gnoga.Gui.Base is
                             Message => "",
                             Script  => Mouse_Event_Script);
       end if;
+log_here;
    end On_Mouse_Move_Handler;
 
    procedure Fire_On_Mouse_Move (Object   : in out Base_Type;

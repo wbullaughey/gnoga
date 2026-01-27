@@ -51,7 +51,7 @@ package body Gnoga.Application.Singleton is
    Connection_Holder : Gnoga.Server.Connection.Connection_Holder_Type;
    --  Used to hold the single incoming connection
 
-   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Debug;
+   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Library_Debug;
 
    procedure On_Connect
      (ID         : in     Gnoga.Types.Connection_ID;

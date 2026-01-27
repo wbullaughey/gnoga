@@ -43,7 +43,7 @@ with Gnoga.Gui.Element.Style_Block;
 
 package body Gnoga.Gui.View.Card is
 
-   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Debug;
+   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Library_Debug;
 
    ------------
    -- Create --

@@ -50,7 +50,7 @@ package body Gnoga.Application.Multi_Connect is
    package Path_Maps is new Ada.Containers.Indefinite_Ordered_Maps
      (String, Application_Connect_Event);
 
-   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Debug;
+   Debug       : Boolean renames Ada_Lib.Options.GNOGA.Library_Debug;
 
    Path_Map : Path_Maps.Map;
 
@@ -130,12 +130,14 @@ package body Gnoga.Application.Multi_Connect is
 
    exception
       when E : Gnoga.Server.Connection.Connection_Error =>
+         Log_Exception (True, E);
          Trace_Exception (E);
          --  Browser window was closed
          Log ("Error connection" & ID'Img & " browser window was closed.");
          Log (Ada.Exceptions.Exception_Information (E));
 
       when E : others =>
+         Log_Exception (True, E);
          Trace_Exception (E);
          Connection.Release;
 
