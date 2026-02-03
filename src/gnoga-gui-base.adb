@@ -411,7 +411,6 @@ package body Gnoga.Gui.Base is
                            return Gnoga.Types.Connection_ID
    is
    begin
-log_here (Object.Connection_ID'img);
       return Object.Connection_ID;
 
 exception
@@ -1074,10 +1073,24 @@ raise;
                                      Handler : in     Mouse_Event)
    is
    begin
+      Log_Here (Debug, "handler " & (if Handler = null then
+            ""
+         else
+            "not ") & "null" &
+         " On_Mouse_Click_Event " & (if Object.On_Mouse_Click_Event = null then
+            ""
+         else
+            "not ") & "null" &
+         " On_Click_Event " & (if Object.On_Click_Event = Null then
+            ""
+         else
+            "not ") & "null");
+
       if
         Object.On_Click_Event = null and
         Object.On_Mouse_Click_Event /= null
       then
+         Log_Here (Debug);
          Object.Unbind_Event ("click");
       end if;
 
@@ -1353,22 +1366,17 @@ raise;
                                     Handler : in     Mouse_Event)
    is
    begin
-log_here;
       if Object.On_Mouse_Down_Event /= null then
-log_here;
          Object.Unbind_Event ("mousedown");
       end if;
 
       Object.On_Mouse_Down_Event := Handler;
-log_here;
 
       if Handler /= null then
-log_here;
          Object.Bind_Event (Event   => "mousedown",
                             Message => "",
                             Script  => Mouse_Event_Script);
       end if;
-log_here;
    end On_Mouse_Down_Handler;
 
    procedure Fire_On_Mouse_Down (Object   : in out Base_Type;
@@ -1418,7 +1426,6 @@ log_here;
                                     Handler : in     Mouse_Event)
    is
    begin
-log_here;
       if Object.On_Mouse_Move_Event /= null then
          Object.Unbind_Event ("mousemove");
       end if;
@@ -1430,7 +1437,6 @@ log_here;
                             Message => "",
                             Script  => Mouse_Event_Script);
       end if;
-log_here;
    end On_Mouse_Move_Handler;
 
    procedure Fire_On_Mouse_Move (Object   : in out Base_Type;
@@ -1979,6 +1985,7 @@ log_here;
                          Message : in     String)
    is
    begin
+      Log_Here (Debug, "event " & Event & " message " & Message);
       -- Object Events --
       if Event = "scroll" then
          Object.Fire_On_Scroll;

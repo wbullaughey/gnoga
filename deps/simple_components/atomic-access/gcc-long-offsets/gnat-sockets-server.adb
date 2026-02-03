@@ -2350,7 +2350,6 @@ package body GNAT.Sockets.Server is
          end loop;
       end Unblock;
    begin
-Ada_Lib.Trace.Log_Here;
       if Address.Port /= 0 then
          Create_Socket (Server_Socket);
          Set_Socket_Option
@@ -2362,22 +2361,17 @@ Ada_Lib.Trace.Log_Here;
          Listen_Socket (Server_Socket);
          Set (Listener.Read_Sockets, Server_Socket);
       end if;
-Ada_Lib.Trace.Log_Here;
       Listener.Request.Activate;
-Ada_Lib.Trace.Log_Here;
       loop
---Ada_Lib.Trace.Log_Here;
          if Listener.Shutdown_Request then
             Listener.Shutdown_Request := False;
             Check (Listener.Read_Sockets);
          end if;
          if Listener.Connect_Request then
-Ada_Lib.Trace.Log_Here;
             declare
                Client : Connection_Ptr;
             begin
                loop
-Ada_Lib.Trace.Log_Here;
                   Listener.Request.Get (Client);
                   exit when Client = null;
                   Set (Listener.Write_Sockets, Client.Socket);
@@ -2393,7 +2387,6 @@ Ada_Lib.Trace.Log_Here;
                end loop;
             end;
          end if;
---Ada_Lib.Trace.Log_Here;
          Copy (Listener.Read_Sockets,  Listener.Ready_To_Read);
          Copy (Listener.Write_Sockets, Listener.Ready_To_Write);
          Check_Selector
@@ -2403,12 +2396,9 @@ Ada_Lib.Trace.Log_Here;
             Status       => Status,
             Timeout      => Listener.IO_Timeout
          );
---Ada_Lib.Trace.Log_Here;
          exit when Listener.Finalizing;
---Ada_Lib.Trace.Log_Here;
          if Status = Completed then
             loop -- Reading from sockets
---Ada_Lib.Trace.Log_Here;
                Get (Listener.Ready_To_Read, Client_Socket);
                exit when Client_Socket = No_Socket;
                if Client_Socket = Server_Socket then
@@ -2554,7 +2544,6 @@ Ada_Lib.Trace.Log_Here;
          end if;
          This_Time := Clock;
          if This_Time - That_Time > Listener.Polling_Timeout then
-Ada_Lib.Trace.Log_Here;
             -- Unblock everything now
             That_Time := This_Time;
             Unblock (False);
@@ -2570,7 +2559,6 @@ Ada_Lib.Trace.Log_Here;
                Set (Listener.Read_Sockets, Server_Socket);
             end if;
          else
---Ada_Lib.Trace.Log_Here;
             -- Checking for explicit unblocking requests
             while Listener.Unblock_Send loop
                Listener.Unblock_Send := False;
@@ -2581,7 +2569,6 @@ Ada_Lib.Trace.Log_Here;
          end if;
          if Status = Completed then
             loop -- Writing sockets
---Ada_Lib.Trace.Log_Here;
                Get (Listener.Ready_To_Write, Client_Socket);
                exit when Client_Socket = No_Socket;
                if Client_Socket /= Server_Socket then
@@ -2734,12 +2721,9 @@ Ada_Lib.Trace.Log_Here;
          else
             Empty (Listener.Ready_To_Write); -- Clear the set
          end if;
---Ada_Lib.Trace.Log_Here;
          exit when Listener.Finalizing;
          Service_Postponed (Listener.all);
---Ada_Lib.Trace.Log_Here;
       end loop;
-Ada_Lib.Trace.Log_Here;
       declare
          Client : Connection_Ptr;
       begin
@@ -2754,7 +2738,6 @@ Ada_Lib.Trace.Log_Here;
             end;
          end loop;
       end;
-Ada_Lib.Trace.Log_Here;
       Close (Server_Socket);
       Trace (Listener.Factory.all, "Worker task exiting");
    exception

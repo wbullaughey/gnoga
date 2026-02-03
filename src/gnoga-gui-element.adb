@@ -71,11 +71,9 @@ package body Gnoga.Gui.Element is
 
       GID : constant String := Adjusted_ID;
    begin
-log_here;
       if Gnoga.Server.Connection.Connection_Type (Parent.Connection_ID) =
         Long_Polling
       then
-log_here;
          declare
             use Ada.Strings.Fixed;
 
@@ -104,7 +102,6 @@ log_here;
             end;
          end;
       else
-log_here;
          Element.Create_With_Script
            (Connection_ID => Parent.Connection_ID,
             ID            => GID,
@@ -115,7 +112,6 @@ log_here;
       end if;
 
       Element.Parent (Parent);
-log_here;
 exception
 
 when Fault: others =>

@@ -56,7 +56,6 @@ package body Gnoga.Gui.Element.Form is
       ID      : in     String           := "")
    is
    begin
-log_here;
       Form.Create_From_HTML (Parent, "<form action=""" &
                                Escape_Quotes (Action) &
                                """ method=""" & Method'Img &
