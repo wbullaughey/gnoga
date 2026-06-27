@@ -805,12 +805,15 @@ package body Gnoga.Server.Connection is
 
    procedure Run is
    begin
+      Ada_Lib.Trace.Log_In (Debug);
       Gnoga_HTTP_Server := new Gnoga_HTTP_Server_Type;
       Gnoga_HTTP_Server.Start;
 
+      Ada_Lib.Trace.Log_Here (Debug);
       Server_Wait.Hold;
 
       Exit_Application_Requested := True;
+      Ada_Lib.Trace.Log_Out (Debug);
    end Run;
 
    -------------------
@@ -840,6 +843,7 @@ package body Gnoga.Server.Connection is
 
       procedure Release is
       begin
+         Standard.Ada_Lib.Trace.Log_Here (Debug);
          Connected := False;
       end Release;
    end Connection_Holder_Type;
@@ -1262,7 +1266,9 @@ package body Gnoga.Server.Connection is
             end if;
       end Ping;
    begin
+      Standard.Ada_Lib.Trace.Log_In (Debug);
       accept Start;
+      Standard.Ada_Lib.Trace.Log_Here (Debug);
 
       loop
          declare
@@ -1281,11 +1287,14 @@ package body Gnoga.Server.Connection is
 
          select
             accept Stop;
+            Standard.Ada_Lib.Trace.Log_Here (Debug);
             exit;
          or
             delay 60.0;
+            Standard.Ada_Lib.Trace.Log_Here (Debug);
          end select;
       end loop;
+      Standard.Ada_Lib.Trace.Log_Out (Debug);
    end Watchdog_Type;
 
    ---------------------------
@@ -2355,25 +2364,30 @@ package body Gnoga.Server.Connection is
    procedure Stop is
       ID : Gnoga.Types.Connection_ID;
    begin
+      Standard.Ada_Lib.Trace.Log_In (Debug);
       if not Exit_Application_Requested and then
         Watchdog /= null and then
         Gnoga_HTTP_Server /= null
       then
+         Standard.Ada_Lib.Trace.Log_Here (Debug);
          Exit_Application_Requested := True;
          Watchdog.Stop;
          Watchdog := null;
 
          Connection_Manager.First (ID);
+         Standard.Ada_Lib.Trace.Log_Here (Debug, "ID" & ID'img);
          while ID /= 0 loop
             Close (ID);
             Connection_Manager.Next (ID);
          end loop;
 
+         Standard.Ada_Lib.Trace.Log_Here (Debug);
          Connection_Manager.Delete_All_Connections;
 
          Gnoga_HTTP_Server.Stop;
          Gnoga_HTTP_Server := null;
       end if;
+      Standard.Ada_Lib.Trace.Log_Out (Debug);
    end Stop;
 
    -----------

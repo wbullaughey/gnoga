@@ -112,11 +112,11 @@ package body Gnoga.Gui.Element is
       end if;
 
       Element.Parent (Parent);
-exception
 
-when Fault: others =>
-Log_Exception (True, Fault);
-raise;
+   exception
+      when Fault: others =>
+      Log_Exception (True, Fault);
+      raise;
    end Create_From_HTML;
 
    ------------------------

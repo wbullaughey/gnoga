@@ -186,8 +186,9 @@ package body Gnoga.Application.Multi_Connect is
                                  Path  : in String := "default")
    is
    begin
-      Log_Here (Debug, Quote ("path", Path));
+      Log_In (Debug, Quote ("path", Path));
       Path_Map.Include (Right_Trim_Slashes (Left_Trim_Slashes (Path)), Event);
+      Log_Out (Debug);
    end On_Connect_Handler;
 
    ------------------
@@ -196,7 +197,9 @@ package body Gnoga.Application.Multi_Connect is
 
    procedure Message_Loop is
    begin
+      Log_In (Debug);
       Gnoga.Server.Connection.Run;
+      Log_Out (Debug);
    end Message_Loop;
 
    ---------------------
