@@ -278,11 +278,9 @@ sqlite3: lib/libsqlite3.a
 cleanall: clean
 	$(MAKE) -C components uninstall
 	- cd src && $(RM) gnoga-application.adb
-	- cd deps && $(RMS) MultiMarkdown-4
 	- cd deps && $(RM) dpm-debug.log
 	- cd deps && $(RMS) electron-quick-start
 	- cd deps && $(RMS) PragmARC
-	- $(RM) bin/multimarkdown
 	- cd docs && $(RM) html/*.html
 	- cd docs && $(RMS) html/gnoga_rm
 
@@ -329,21 +327,8 @@ clean:
 	- cd bin && $(RM) temp.txt
 	- cd bin && $(RM) gnoga-test
 
-bin/multimarkdown:
-	- cd deps && git clone git@github.com:fletcher/MultiMarkdown-4.git
-	- cd deps/MultiMarkdown-4 && git submodule init
-	- cd deps/MultiMarkdown-4 && git submodule update
-	- cd deps/MultiMarkdown-4 && make
-	- $(MOVE) deps/MultiMarkdown-4/multimarkdown bin/
-
 rm-docs: gnoga
 	gnatdoc -Psrc/gnoga.gpr --no-subprojects -XDevelopment=Debug -XLegacy=Ada2005 -XAtomic_Access=GCC-long-offsets -XTasking=Multiple -XTraced_objects=Off -XPRJ_TARGET=Unix -XPRJ_BUILD=Debug
-
-html-docs: bin/multimarkdown
-	cd docs && ../bin/multimarkdown user_guide.md > html/user_guide.html
-	cd docs && ../bin/multimarkdown api_summary.md > html/api_summary.html
-	cd docs && ../bin/multimarkdown native_mac_apps.md > html/native_mac_apps.html
-	cd docs && ../bin/multimarkdown native_gtk_apps.md > html/native_gtk_apps.html
 
 gps:
 	gps -XPRJ_TARGET=${PRJ_TARGET} -XAtomic_Access=${ATOMIC_ACCESS} &
