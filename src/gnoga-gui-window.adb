@@ -89,10 +89,10 @@ package body Gnoga.Gui.Window is
          return Message (S .. (F - 1));
       end Split;
 
-      function Split return Boolean is
-      begin
-         return Split = "true";
-      end Split;
+--    function Split return Boolean is
+--    begin
+--       return Split = "true";
+--    end Split;
    begin
       Event.Name := To_Unbounded_String (Split);
       Event.Old_Value := To_Unbounded_String (Split);
@@ -117,7 +117,7 @@ package body Gnoga.Gui.Window is
           (Gnoga.Types.Connection_Data_Type'Class,
            Gnoga.Types.Pointer_to_Connection_Data_Class);
    begin
-      if Object.View /= null and Object.View_Is_Dynamic then
+      if Object.View /= null and then Object.View_Is_Dynamic then
          Object.View.Free;
          Object.View := null;
       else
@@ -232,7 +232,7 @@ package body Gnoga.Gui.Window is
                        Object : in out Gnoga.Gui.Base.Base_Type'Class;
                        Place  : in     Boolean := True)
    is
-      use Gnoga.Types;
+--    use Gnoga.Types;
       use Gnoga.Gui.Element;
    begin
       if not (Object in Element_Type'Class) then
@@ -936,7 +936,7 @@ package body Gnoga.Gui.Window is
                              Child  : in out Gnoga.Gui.Base.Base_Type'Class)
    is
    begin
-      if Child in Gnoga.Gui.View.View_Base_Type'Class and Object.Auto_Set_View
+      if Child in Gnoga.Gui.View.View_Base_Type'Class and then Object.Auto_Set_View
       then
          if Gnoga.Gui.View.View_Base_Type (Child).Auto_Place then
             Object.Set_View (Child);
